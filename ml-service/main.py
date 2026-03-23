@@ -36,7 +36,17 @@ def cluster_potholes(input: CoordinateInput):
         result.append({
             "latitude": float(centroid[0]),
             "longitude": float(centroid[1]),
-            "count": len(cluster)
+            "count": len(cluster),
+            "severity":calculate_severity(len(cluster))
         })
 
     return {"clusters": result}
+
+def calculate_severity(count):
+    if count>10:
+        return "dangerous"
+    elif count >5:
+        return "bad"
+    elif count>2:
+        return "moderate"
+    return "low"
